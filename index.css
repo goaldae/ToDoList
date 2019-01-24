@@ -1,3 +1,13 @@
 body{
     background-color: silver
 }
+
+.form,
+.greetings{
+    display: none;
+}
+
+.showing{
+    display: block;
+}
+

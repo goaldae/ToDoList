@@ -11,6 +11,6 @@ function getTime(){
 
 function init(){
     getTime();
-    setInterval(getTime, 1000);
+    setInterval(getTime, 1000); //getTime을 1000밀리초에 한번씩 실행함
 }
 init();
