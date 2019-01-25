@@ -3,7 +3,21 @@ const toDoInput = toDoForm.querySelector("input");
 const toDoList = document.querySelector(".js-toDoList");
 
 const TODOS_LS = "toDos"; //key값
-const toDos = []; //할 일들을 저장하는 배열
+let toDos = []; //할 일들을 저장하는 배열 //바뀌어야하기때문에 let으로 선언
+
+function deletToDo(event){
+    //event.target 이벤트가 일어나는 것 태그
+    const btn = event.target;
+    const li = btn.parentNode;
+    toDoList.removeChild(li); //html상에서 지워짐 (로컬 스토리지는 안지워짐)
+
+    const cleanToDos = toDos.filter(function(toDo){ //forEach 함수와 같이 각각의 배열 값에 따라 인자의 함수 반환값이 참인 것만 저장한다.
+        return toDo.id !== parseInt(li.id);
+    });
+    toDos = cleanToDos;
+    saveToDos();
+    console.log(toDos);
+}
 
 function saveToDos(){
     localStorage.setItem(TODOS_LS, JSON.stringify(toDos)); //로컬 스토리지는 자바스크립트 데이터를 저장하지 못해서 문자열로 바꿔줘야함
@@ -20,6 +34,8 @@ function showToDo(text){
         text : text, //key는 text, value는 입력한 todo
         id : newId //나중에 선택해서 지우기 위한 id값
     }
+
+    delBtn.addEventListener("click", deletToDo); //X버튼 눌렀을 때 deletToDo 함수 실행
     
     li.id = newId; //li에 1부터 id값 주기
     delBtn.innerText = "X"; //각 태그에 텍스트 추가 
