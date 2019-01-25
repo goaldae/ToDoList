@@ -6,10 +6,22 @@ const USER_LS = "currentUser"; //로컬스토리지에 저장되는 유저 이�
 const SHOWING_CN = "showing"; //showing 클래스 이름 변수에 저장
 
 
+
 function showGreeting(text){ //js-greetings 태그에 인사말 표시하기
+    const btn = document.createElement("button");
+    btn.innerText = "Edit name"; //이름수정하는 버튼
+
     form.classList.remove(SHOWING_CN); //input창은 showing을 없애야함
     greeting.classList.add(SHOWING_CN); //인사말에 shwoing 클래스를 추가함으로써 보여주기
     greeting.innerText = `Hello ${text}!`;
+    greeting.appendChild(btn);
+
+    btn.addEventListener("click", function(){ //수정하기 눌렀을 때 
+        greeting.classList.remove(SHOWING_CN); //인사말 없애기
+        form.classList.add(SHOWING_CN); //물어보는 창 보여주기
+        greeting.removeChild(btn); //버튼 없애기
+        localStorage.removeItem(USER_LS); //저장돼있는 유저 이름지우기
+    });
 }
 
 function saveName(text){
